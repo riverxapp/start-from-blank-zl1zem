@@ -1,66 +1,938 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Edit Me</title>
+  <meta name="description" content="A refined photography portfolio landing page with featured work, services, and a direct inquiry path." />
+  <title>Northlight Studio — Photography Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      color-scheme: light;
+      --bg: #0b0f14;
+      --bg-elevated: #111722;
+      --surface: rgba(255, 255, 255, 0.05);
+      --surface-strong: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.12);
+      --border-strong: rgba(255, 255, 255, 0.2);
+      --text: #f4f0ea;
+      --text-muted: rgba(244, 240, 234, 0.72);
+      --text-soft: rgba(244, 240, 234, 0.56);
+      --accent: #d7a36a;
+      --accent-strong: #f0c38b;
+      --accent-soft: rgba(215, 163, 106, 0.16);
+      --success: #8fcf9c;
+      --shadow: 0 28px 60px rgba(0, 0, 0, 0.35);
+      --shadow-soft: 0 14px 32px rgba(0, 0, 0, 0.22);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      --radius-sm: 14px;
+      --container: 1180px;
+      --space-2xs: 0.375rem;
+      --space-xs: 0.625rem;
+      --space-sm: 0.875rem;
+      --space-md: 1.25rem;
+      --space-lg: 1.75rem;
+      --space-xl: 2.5rem;
+      --space-2xl: 3.5rem;
+      --space-3xl: 5rem;
+      --font-sans: "Inter", system-ui, sans-serif;
+      --font-serif: "Cormorant Garamond", Georgia, serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+      --dur-fast: 160ms;
+      --dur-med: 260ms;
+      --dur-slow: 420ms;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #ffffff;
-      color: #111111;
-      font-family: "Inter", sans-serif;
+      overflow-x: clip;
+      background:
+        radial-gradient(circle at top, rgba(215, 163, 106, 0.16), transparent 32%),
+        radial-gradient(circle at 85% 20%, rgba(255, 255, 255, 0.06), transparent 26%),
+        linear-gradient(180deg, #0b0f14 0%, #0f141c 52%, #0a0d12 100%);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
-    main {
-      width: min(28rem, calc(100vw - 2rem));
-      text-align: center;
-    }
-
-    .icon {
-      width: 3rem;
-      height: 3rem;
-      margin: 0 auto 1rem;
+    img {
       display: block;
-      color: #111111;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .container {
+      width: min(var(--container), calc(100vw - 2rem));
+      margin: 0 auto;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: -4rem;
+      z-index: 100;
+      padding: 0.8rem 1rem;
+      border-radius: 999px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 700;
+      transition: top var(--dur-fast) var(--ease-out);
+    }
+
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(18px);
+      background: rgba(11, 15, 20, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-lg);
+      min-height: 4.5rem;
+      padding: 0.9rem 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      flex-direction: column;
+      gap: 0.1rem;
+      min-width: 0;
+    }
+
+    .brand strong {
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      color: var(--text-soft);
+      font-size: 0.88rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      font-weight: 500;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      color: var(--text);
+    }
+
+    .cta-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      font-weight: 700;
+      white-space: nowrap;
+      transition:
+        transform var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out),
+        background var(--dur-fast) var(--ease-out);
+    }
+
+    .cta-link:hover,
+    .cta-link:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .hero {
+      padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(3rem, 7vw, 6rem);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: clamp(1.4rem, 3vw, 2.5rem);
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      padding: clamp(1.5rem, 3vw, 2.5rem) 0;
+      max-width: 42rem;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 1rem;
+      color: var(--accent-strong);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 2.25rem;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.7;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
     }
 
     h1 {
-      margin: 0 0 0.5rem;
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 10vw, 7.9rem);
+      font-weight: 700;
+      max-width: 10ch;
+      text-wrap: balance;
     }
 
-    p {
+    .hero-copy p {
+      margin: 1.4rem 0 0;
+      max-width: 36rem;
+      font-size: clamp(1.05rem, 1.35vw, 1.25rem);
+      color: var(--text-muted);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-top: 2rem;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.55rem;
+      min-height: 3.25rem;
+      padding: 0.9rem 1.2rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition:
+        transform var(--dur-fast) var(--ease-out),
+        background var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+      white-space: nowrap;
+    }
+
+    .button-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+      color: #16110b;
+      box-shadow: 0 18px 36px rgba(215, 163, 106, 0.24);
+    }
+
+    .button-secondary {
+      border-color: var(--border-strong);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translateY(-1px);
+    }
+
+    .button-primary:hover,
+    .button-primary:focus-visible {
+      background: linear-gradient(135deg, #e5b57e, #f2cf9f);
+    }
+
+    .button-secondary:hover,
+    .button-secondary:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.24);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.9rem;
+      margin-top: 2.2rem;
+    }
+
+    .meta-card {
+      padding: 1rem 1rem 1.05rem;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      min-width: 0;
+    }
+
+    .meta-card strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .meta-card span {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 34rem;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01)),
+        #121821;
+      box-shadow: var(--shadow);
+    }
+
+    .visual-main {
+      position: absolute;
+      inset: 1rem 1rem 7rem 1rem;
+      border-radius: calc(var(--radius-xl) - 6px);
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.4)),
+        url("https://images.unsplash.com/photo-1502982720700-bfff97f2ecac?auto=format&fit=crop&w=1400&q=80") center/cover;
+    }
+
+    .visual-overlay {
+      position: absolute;
+      inset: auto 1rem 1rem 1rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.9rem;
+      align-items: end;
+      padding: 1rem 1rem 1.05rem;
+      border-radius: var(--radius-lg);
+      background: rgba(7, 10, 14, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .visual-overlay p {
       margin: 0;
-      font-size: 1rem;
-      line-height: 1.5;
-      color: #444444;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .visual-overlay strong {
+      display: block;
+      margin-bottom: 0.15rem;
+      font-size: 1.05rem;
+    }
+
+    .visual-badge {
+      align-self: stretch;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      background: rgba(215, 163, 106, 0.14);
+      border: 1px solid rgba(215, 163, 106, 0.3);
+      color: var(--accent-strong);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .social-proof {
+      padding: 0 0 clamp(3rem, 6vw, 5rem);
+    }
+
+    .proof-strip {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.2rem 1.2rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .proof-strip p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .client-row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0.8rem;
+    }
+
+    .client {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 4rem;
+      padding: 0.85rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-soft);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .section {
+      padding: clamp(2.8rem, 6vw, 5rem) 0;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem;
+      align-items: end;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-head h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      max-width: 12ch;
+      text-wrap: balance;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 32rem;
+      color: var(--text-muted);
+    }
+
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 1rem;
+    }
+
+    .gallery-card {
+      position: relative;
+      min-height: 26rem;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-elevated);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .gallery-card .image {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      transition: transform var(--dur-slow) var(--ease-out);
+    }
+
+    .gallery-card:hover .image,
+    .gallery-card:focus-within .image {
+      transform: scale(1.03);
+    }
+
+    .gallery-card .label {
+      position: absolute;
+      left: 1rem;
+      bottom: 1rem;
+      right: 1rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius-md);
+      background: rgba(7, 10, 14, 0.62);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .label strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-size: 1.05rem;
+    }
+
+    .label span {
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+
+    .label .year {
+      color: var(--accent-strong);
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .feature-stack {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .feature-panel {
+      padding: 1.4rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .feature-panel h3 {
+      font-size: 1.2rem;
+      line-height: 1.15;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-panel p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .use-cases {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .case-card {
+      padding: 1.35rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+      min-width: 0;
+    }
+
+    .case-card .kicker {
+      display: inline-flex;
+      margin-bottom: 0.85rem;
+      color: var(--accent-strong);
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .case-card h3 {
+      font-size: 1.35rem;
+      line-height: 1.12;
+      margin-bottom: 0.7rem;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--text-muted);
+    }
+
+    .cta {
+      padding-bottom: 5rem;
+    }
+
+    .cta-panel {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 1rem;
+      align-items: center;
+      padding: clamp(1.4rem, 3vw, 2rem);
+      border-radius: calc(var(--radius-xl) + 4px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        radial-gradient(circle at top right, rgba(215, 163, 106, 0.18), transparent 34%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+      box-shadow: var(--shadow);
+    }
+
+    .cta-panel h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      max-width: 10ch;
+      margin-bottom: 0.6rem;
+    }
+
+    .cta-panel p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 34rem;
+    }
+
+    .cta-side {
+      display: grid;
+      gap: 0.9rem;
+      justify-items: end;
+    }
+
+    .cta-note {
+      text-align: right;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.95rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .site-footer {
+      padding: 1.8rem 0 2.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
+      color: var(--text);
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent-strong);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .featured-grid,
+      .cta-panel,
+      .proof-strip,
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-side {
+        justify-items: start;
+      }
+
+      .cta-note {
+        text-align: left;
+      }
+
+      .use-cases {
+        grid-template-columns: 1fr;
+      }
+
+      .client-row,
+      .hero-meta {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 0.9rem 1rem;
+      }
+
+      .hero {
+        padding-top: 1.8rem;
+      }
+
+      h1 {
+        max-width: 9ch;
+      }
+
+      .hero-visual {
+        min-height: 28rem;
+      }
+
+      .visual-main {
+        inset: 0.75rem 0.75rem 6.4rem 0.75rem;
+      }
+
+      .visual-overlay {
+        inset: auto 0.75rem 0.75rem 0.75rem;
+        grid-template-columns: 1fr;
+      }
+
+      .hero-meta,
+      .client-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
     }
   </style>
 </head>
 <body>
-  <main>
-    <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path d="M12 3L4 7V12C4 17 7.4 20.9 12 22C16.6 20.9 20 17 20 12V7L12 3Z" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M9.5 12L11.25 13.75L15 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <h1>Open for Editing</h1>
-    <p>Agent: edit this page freely and keep it simple.</p>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="#hero" aria-label="Northlight Studio home">
+          <strong>Northlight</strong>
+          <span>Photography portfolio</span>
+        </a>
+
+        <div class="nav-links">
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact" class="cta-link">Book a session</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Editorial portrait and brand imagery</div>
+          <h1>Portraits that feel lived in.</h1>
+          <p>
+            A photography portfolio built for clients who want images with atmosphere, restraint, and a clear point of view — from portraits and campaigns to intimate visual stories.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#contact">Start a project</a>
+            <a class="button button-secondary" href="#work">View selected work</a>
+          </div>
+
+          <div class="hero-meta" aria-label="Portfolio highlights">
+            <div class="meta-card">
+              <strong>12+ years</strong>
+              <span>Commissioned and self-directed work</span>
+            </div>
+            <div class="meta-card">
+              <strong>Portraits</strong>
+              <span>People, artists, founders, and teams</span>
+            </div>
+            <div class="meta-card">
+              <strong>Worldwide</strong>
+              <span>Available for travel and destination shoots</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Featured portfolio image">
+          <div class="visual-main"></div>
+          <div class="visual-overlay">
+            <div>
+              <strong>Quiet Light Series</strong>
+              <p>Natural-light portrait study shot across coastal interiors and late afternoon shadows.</p>
+            </div>
+            <div class="visual-badge">Selected project</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="social-proof" id="about">
+      <div class="container">
+        <div class="proof-strip">
+          <p>Trusted by independent brands, magazines, and creative teams who need imagery with intention.</p>
+          <div class="client-row" aria-label="Client categories">
+            <div class="client">Editorial</div>
+            <div class="client">Fashion</div>
+            <div class="client">Lifestyle</div>
+            <div class="client">Commercial</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="work">
+      <div class="container">
+        <div class="section-head">
+          <h2>Featured work with room to breathe.</h2>
+          <p>Three recent series showing range across portraiture, campaign work, and documentary-style storytelling.</p>
+        </div>
+
+        <div class="featured-grid">
+          <article class="gallery-card" tabindex="0">
+            <div class="image" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=1400&q=80');"></div>
+            <div class="label">
+              <div>
+                <strong>Studio Portraits</strong>
+                <span>Focused light, soft shadow, clean direction</span>
+              </div>
+              <div class="year">2024</div>
+            </div>
+          </article>
+
+          <div class="feature-stack">
+            <article class="gallery-card" tabindex="0" style="min-height: 12.5rem;">
+              <div class="image" style="background-image: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.28)), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80');"></div>
+              <div class="label">
+                <div>
+                  <strong>Brand Campaigns</strong>
+                  <span>Layered compositions for launches and lookbooks</span>
+                </div>
+                <div class="year">2025</div>
+              </div>
+            </article>
+
+            <article class="feature-panel">
+              <h3>Stories that keep their tone.</h3>
+              <p>
+                Every series is edited to protect shape, skin tone, and texture — so the final set feels cohesive across web, print, and social.
+              </p>
+            </article>
+
+            <article class="feature-panel">
+              <h3>Polished delivery, simple process.</h3>
+              <p>
+                Clear pre-production, a calm shoot day, and fast handoff with retouched selects sized for launch, press, and portfolio use.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <h2>Built for different ways clients hire.</h2>
+          <p>Whether someone needs a personal portrait session or a full creative campaign, the page makes the next step obvious.</p>
+        </div>
+
+        <div class="use-cases">
+          <article class="case-card">
+            <span class="kicker">For founders</span>
+            <h3>Portraits that feel credible, not corporate.</h3>
+            <p>Clean, editorial headshots and personal branding images that work on LinkedIn, websites, and press kits.</p>
+          </article>
+
+          <article class="case-card">
+            <span class="kicker">For brands</span>
+            <h3>Campaign photography with a coherent visual system.</h3>
+            <p>Product launches, campaign visuals, and social crops with consistent framing and art direction.</p>
+          </article>
+
+          <article class="case-card">
+            <span class="kicker">For editors</span>
+            <h3>Image sets that carry a narrative across a story.</h3>
+            <p>Documentary and editorial sequences designed to hold attention from hero image to final spread.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="contact">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <h2>Ready for a project with real atmosphere?</h2>
+            <p>
+              Share your brief, timeline, and image needs. You’ll get a thoughtful reply with availability, creative direction, and the next practical step.
+            </p>
+          </div>
+
+          <div class="cta-side">
+            <a class="button button-primary" href="mailto:hello@northlightstudio.com">hello@northlightstudio.com</a>
+            <div class="cta-note">Typical response time: within 1–2 business days.</div>
+            <a class="contact-pill" href="tel:+10000000000">Call +1 (000) 000-0000</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div>© 2026 Northlight Studio. All rights reserved.</div>
+        <div class="footer-links" aria-label="Footer links">
+          <a href="#hero">Top</a>
+          <a href="#work">Work</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
